@@ -1,8 +1,9 @@
 import React from 'react';
-import '../pages/index.css';
+import '../index.css';
 import Header from './Header.js';
 import Main from './Main.js';
 import Footer from './Footer.js';
+import PopupWithForm from './PopupWithForm.js';
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
         <Header/>
         <Main/>
         <Footer/>
+        <PopupWithForm/>
       </div>
     </div>
   );

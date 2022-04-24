@@ -1,5 +1,5 @@
 import headerLogo from '../images/logo-white.svg';
-import '../pages/index.css';
+import '../index.css';
 
 function Header() {
   return (
