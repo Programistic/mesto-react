@@ -10,9 +10,12 @@ class PopupWithForm extends React.Component {
   }
 
   render() {
+
+    const popupOpened = this.props.isOpen ? 'popup_opened' : false;
+
     return (
       <>
-        <div className={`popup popup_role_${this.props.name}`}>  {/*confirm, avatar-update, create, edit*/}
+        <div className={`popup popup_role_${this.props.name} ${popupOpened}`}>  {/*confirm, avatar-update, create, edit*/}
           <div className="popup__container">
             <h2 className="popup__heading">{this.props.title}</h2>
             <form className="form" name={this.props.name}>
@@ -21,11 +24,10 @@ class PopupWithForm extends React.Component {
               {this.props.children === 'create' && <FieldsetPopupCreate />}
               {this.props.children === 'avatar-update' && <FieldsetPopupAvatarUpdate />}
               
-
               <button className="form__submit button" type="submit" aria-label={this.props.buttonText}>{this.props.buttonText}</button>
             </form>
           </div>
-          <button className="button popup__button-close" type="button" aria-label="Закрыть"></button>
+          <button className="button popup__button-close" type="button" aria-label="Закрыть" onClick={this.props.onClose}></button>
         </div>
       </>
     );
