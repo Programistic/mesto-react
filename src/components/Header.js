@@ -4,7 +4,7 @@ import '../index.css';
 function Header() {
   return (
     <div className="header">
-      <img className="logo" src={headerLogo} alt="Логотип Mesto"></img>
+      <img className="logo" src={headerLogo} alt="Логотип Mesto"/>
     </div>
   );
 }

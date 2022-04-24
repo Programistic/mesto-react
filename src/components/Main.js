@@ -1,4 +1,3 @@
-import React from 'react';
 import '../index.css';
 import profileAvatar from '../images/Kusto.jpg';
 
@@ -6,7 +5,7 @@ function Main() {
   return (
     <div>
       <section className="profile">
-        <img className="profile__avatar" src={profileAvatar} alt="Аватар"></img>
+        <img className="profile__avatar" src={profileAvatar} alt="Аватар"/>
         <div className="profile__edit-icon" onClick={handleEditAvatarClick}></div>    
         <div className="profile__inner-container">
           <h1 className="profile__user-name">Жак-Ив Кусто</h1>
