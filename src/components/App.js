@@ -23,7 +23,7 @@ function App() {
     <div className="page">
       <div className="container">
         <Header />
-        <Main handleEditProfileClick={handleEditProfileClick} handleAddPlaceClick={handleAddPlaceClick} handleEditAvatarClick={handleEditAvatarClick}/>
+        <Main onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} onEditAvatar={handleEditAvatarClick}/>
         <Footer />
         <PopupWithForm name="edit" title="Редактировать профиль" buttonText="Сохранить" children="edit"/>
         <PopupWithForm name="create" title="Новое место" buttonText="Создать" children="create"/>
