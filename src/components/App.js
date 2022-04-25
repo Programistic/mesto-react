@@ -42,7 +42,7 @@ class App extends React.Component {
       <div className="page">
         <div className="container">
           <Header />
-          <Main onEditProfile={this.handleEditProfileClick} onAddPlace={this.handleAddPlaceClick} onEditAvatar={this.handleEditAvatarClick}/>
+          <Main onEditProfile={this.handleEditProfileClick} onAddPlace={this.handleAddPlaceClick} onEditAvatar={this.handleEditAvatarClick} name="Жак Ив Кусто" about="Исследователь океана" avatar=""/>
           <Footer />
           <PopupWithForm name="edit" title="Редактировать профиль" buttonText="Сохранить" children="edit" isOpen={this.state.isEditProfilePopupOpen} onClose={this.closeAllPopups} />
           <PopupWithForm name="create" title="Новое место" buttonText="Создать" children="create" isOpen={this.state.isAddPlacePopupOpen} onClose={this.closeAllPopups} />
