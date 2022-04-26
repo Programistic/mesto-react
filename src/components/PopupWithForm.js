@@ -1,7 +1,4 @@
 import React from 'react';
-import FieldsetPopupEdit from './FieldsetPopupEdit.js'
-import FieldsetPopupCreate from './FieldsetPopupCreate.js'
-import FieldsetPopupAvatarUpdate from './FieldsetPopupAvatarUpdate.js'
 
 class PopupWithForm extends React.Component {
   

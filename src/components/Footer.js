@@ -3,7 +3,7 @@ function Footer() {
   return (
     <div className="footer">
       <p className="footer__author">
-          &copy; 2022. Максим Давлеткильдеев
+          &copy; { new Date().getFullYear() }. Максим Давлеткильдеев
       </p>
     </div>
   );
