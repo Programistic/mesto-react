@@ -1,6 +1,6 @@
 function ImagePopup(props) {
 
-  const popupOpened = (props.card !== false) ? 'popup_opened' : false;
+  const popupOpened = (JSON.stringify(props.card) !== '{}') ? 'popup_opened' : '';
 
   return (
     <div className={`popup popup_role_image-display ${popupOpened}`}>

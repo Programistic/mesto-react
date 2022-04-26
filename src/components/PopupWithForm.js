@@ -7,7 +7,7 @@ class PopupWithForm extends React.Component {
   
   render() {
   
-    const popupOpened = this.props.isOpen ? 'popup_opened' : false;
+    const popupOpened = this.props.isOpen ? 'popup_opened' : '';
   
     return (
       <div className={`popup popup_role_${this.props.name} ${popupOpened}`}>
