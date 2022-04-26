@@ -6,28 +6,30 @@ import Card from './Card.js';
 class Main extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { userName: props.name, userDescription: props.about, userAvatar: props.avatar, cards: [] };
+    this.state = { userName: null, userDescription: null, userAvatar: null, cards: [] };
   }  
 
   componentDidMount() {
     Promise.all([api.getProfile(), api.getCards()])
       .then(([userData, cardsData]) => {
-        this.setState({
-          userName: userData.name,
-          userDescription: userData.about,
-          userAvatar: userData.avatar,
-          cards: cardsData,
-        });
-        this.cardList = this.state.cards.map((item) => (
-          <Card key={item._id} title={item.name} link={item.link} number={item.likes.length} />
-        )) 
+        this.setState(
+          {
+            userName: userData.name,
+            userDescription: userData.about,
+            userAvatar: userData.avatar,
+            cards: cardsData,
+          }
+        );
+        this.cardList = this.state.cards.map((card) => (
+          <Card key={card._id} title={card.name} link={card.link} number={card.likes.length} onCardClick={this.props.onCardClick} />
+        ))
       })
       .catch((err) => {
         console.log(err);
       });
   }
 
-  render() { 
+  render() {
     return (
       <div>
         <section className="profile">

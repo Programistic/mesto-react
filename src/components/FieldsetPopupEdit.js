@@ -1,6 +1,5 @@
-import '../index.css';
-
 function FieldsetPopupEdit() {
+
   return (
     <fieldset className="form__fieldset">
       <div className="form__field">

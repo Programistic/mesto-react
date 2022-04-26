@@ -1,6 +1,5 @@
-import '../index.css';
-
 function Footer() {
+
   return (
     <div className="footer">
       <p className="footer__author">

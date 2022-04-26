@@ -1,4 +1,8 @@
-// Api.js, создание класса для работы с API
+const cohortID = 'cohort-39';
+const token = 'fed91f6d-1f71-4682-bc63-ccd602fc60c4';
+const cardURL = `https://mesto.nomoreparties.co/v1/${cohortID}/cards`;
+const userURL = `https://mesto.nomoreparties.co/v1/${cohortID}/users/me`;
+const avatarURL =`https://mesto.nomoreparties.co/v1/${cohortID}/users/me/avatar`;
 
 class Api {
   constructor(userURL, cardURL, avatarURL, token) {
@@ -106,12 +110,6 @@ class Api {
     return res.ok ? res.json() : Promise.reject(`Error ${res.status}`)
   }
 }
-
-const cohortID = 'cohort-39';
-const token = 'fed91f6d-1f71-4682-bc63-ccd602fc60c4';
-const cardURL = `https://mesto.nomoreparties.co/v1/${cohortID}/cards`;
-const userURL = `https://mesto.nomoreparties.co/v1/${cohortID}/users/me`;
-const avatarURL =`https://mesto.nomoreparties.co/v1/${cohortID}/users/me/avatar`;
 
 const api = new Api(userURL, cardURL, avatarURL, token);
 
