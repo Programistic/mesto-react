@@ -29,6 +29,12 @@ class App extends React.Component {
     this.setState({ isEditAvatarPopupOpen: true });
   }
 
+  handleEscClick = (event) => {
+    if (event.key === 'Escape') {
+      this.closeAllPopups();
+    }
+  }
+
   closeAllPopups = () => {
     this.setState(
       {
@@ -42,6 +48,14 @@ class App extends React.Component {
 
   handleCardClick = (card) => {
     this.setState({ selectedCard: card });
+  }
+
+  componentDidMount() {
+    document.addEventListener("keydown", this.handleEscClick);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener("keydown", this.handleEscClick);
   }
 
   render() {
