@@ -3,6 +3,9 @@ import Header from './Header.js';
 import Main from './Main.js';
 import Footer from './Footer.js';
 import PopupWithForm from './PopupWithForm.js';
+import FieldsetPopupEdit from './FieldsetPopupEdit';
+import FieldsetPopupCreate from './FieldsetPopupCreate';
+import FieldsetPopupAvatarUpdate from './FieldsetPopupAvatarUpdate';
 import ImagePopup from './ImagePopup.js';
 
 class App extends React.Component {
@@ -63,12 +66,25 @@ class App extends React.Component {
       <div className="page">
         <div className="container">
           <Header />
+
           <Main onEditProfile={this.handleEditProfileClick} onAddPlace={this.handleAddPlaceClick} onEditAvatar={this.handleEditAvatarClick} onCardClick={this.handleCardClick} />
+
           <Footer />
-          <PopupWithForm name="edit" title="Редактировать профиль" buttonText="Сохранить" children="edit" isOpen={this.state.isEditProfilePopupOpen} onClose={this.closeAllPopups} />
-          <PopupWithForm name="create" title="Новое место" buttonText="Создать" children="create" isOpen={this.state.isAddPlacePopupOpen} onClose={this.closeAllPopups} />
-          <PopupWithForm name="avatar-update" title="Обновить аватар" buttonText="Сохранить" children="avatar-update" isOpen={this.state.isEditAvatarPopupOpen} onClose={this.closeAllPopups} />
+
+          <PopupWithForm name="edit" title="Редактировать профиль" buttonText="Сохранить" isOpen={this.state.isEditProfilePopupOpen} onClose={this.closeAllPopups}>
+            <FieldsetPopupEdit />
+          </PopupWithForm>
+
+          <PopupWithForm name="create" title="Новое место" buttonText="Создать" isOpen={this.state.isAddPlacePopupOpen} onClose={this.closeAllPopups}>
+            <FieldsetPopupCreate />
+          </PopupWithForm>
+
+          <PopupWithForm name="avatar-update" title="Обновить аватар" buttonText="Сохранить" isOpen={this.state.isEditAvatarPopupOpen} onClose={this.closeAllPopups}>
+            <FieldsetPopupAvatarUpdate />
+          </PopupWithForm>
+
           <PopupWithForm name="confirm" title="Вы уверены?" buttonText="Да" onClose={this.closeAllPopups} />
+
           <ImagePopup card={this.state.selectedCard} onClose={this.closeAllPopups} />
         </div>
       </div>

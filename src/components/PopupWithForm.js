@@ -14,9 +14,7 @@ class PopupWithForm extends React.Component {
         <div className="popup__container">
           <h2 className="popup__heading">{this.props.title}</h2>
           <form className="form" name={this.props.name}>
-            { this.props.children === 'edit' && <FieldsetPopupEdit /> }
-            { this.props.children === 'create' && <FieldsetPopupCreate /> }
-            { this.props.children === 'avatar-update' && <FieldsetPopupAvatarUpdate /> }   
+            {this.props.children}
             <button className="form__submit button" type="submit" aria-label={this.props.buttonText}>{this.props.buttonText}</button>
           </form>
         </div>
