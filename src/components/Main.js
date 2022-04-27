@@ -31,7 +31,7 @@ class Main extends React.Component {
 
   render() {
     return (
-      <div>
+      <main>
         <section className="profile">
           <img className="profile__avatar" src={this.state.userAvatar} alt="Аватар"/>
           <div className="profile__edit-icon" onClick={this.props.onEditAvatar}></div>    
@@ -48,7 +48,7 @@ class Main extends React.Component {
             {this.cardList}
           </ul>
         </section>
-      </div>
+      </main>
     );
   }
 }
