@@ -38,6 +38,16 @@ class App extends React.Component {
     }
   }
 
+  handleOutsideClick = (event) => {
+    if (event.target.classList.contains('popup')) {
+      this.closeAllPopups();
+    }
+  }
+
+  handleCardClick = (card) => {
+    this.setState({ selectedCard: card });
+  }
+
   closeAllPopups = () => {
     this.setState(
       {
@@ -49,16 +59,14 @@ class App extends React.Component {
     );
   }
 
-  handleCardClick = (card) => {
-    this.setState({ selectedCard: card });
-  }
-
   componentDidMount() {
     document.addEventListener("keydown", this.handleEscClick);
+    document.addEventListener("click", this.handleOutsideClick);
   }
 
   componentWillUnmount() {
     document.removeEventListener("keydown", this.handleEscClick);
+    document.addEventListener("click", this.handleOutsideClick);
   }
 
   render() {
