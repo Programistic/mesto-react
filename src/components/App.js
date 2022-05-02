@@ -7,6 +7,7 @@ import FieldsetPopupEdit from './FieldsetPopupEdit';
 import FieldsetPopupCreate from './FieldsetPopupCreate';
 import FieldsetPopupAvatarUpdate from './FieldsetPopupAvatarUpdate';
 import ImagePopup from './ImagePopup.js';
+import api from '../utils/Api.js';
 
 class App extends React.Component {
   constructor(props) {
@@ -16,7 +17,8 @@ class App extends React.Component {
       isEditProfilePopupOpen: false,
       isAddPlacePopupOpen: false,
       isEditAvatarPopupOpen: false,
-      selectedCard: {}
+      selectedCard: {},
+      currentUser: {}
     };
   }
 
@@ -60,6 +62,16 @@ class App extends React.Component {
   }
 
   componentDidMount() {
+
+    api.getProfile()
+      .then((userData) => {
+        this.setState( {currentUser: userData} )
+        console.log(this.state.currentUser)
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
     document.addEventListener("keydown", this.handleEscClick);
     document.addEventListener("click", this.handleOutsideClick);
   }
