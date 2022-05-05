@@ -1,13 +1,15 @@
 import React from 'react';
-import Header from './Header.js';
-import Main from './Main.js';
-import Footer from './Footer.js';
-import PopupWithForm from './PopupWithForm.js';
+import { Route } from 'react-router-dom';
+import Header from './Header';
+import Main from './Main';
+import Footer from './Footer';
+import PopupWithForm from './PopupWithForm';
 import FieldsetPopupEdit from './FieldsetPopupEdit';
 import FieldsetPopupCreate from './FieldsetPopupCreate';
 import FieldsetPopupAvatarUpdate from './FieldsetPopupAvatarUpdate';
 import ImagePopup from './ImagePopup.js';
 import api from '../utils/Api.js';
+import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 class App extends React.Component {
   constructor(props) {
@@ -85,27 +87,33 @@ class App extends React.Component {
     return (
       <div className="page">
         <div className="container">
-          <Header />
 
-          <Main onEditProfile={this.handleEditProfileClick} onAddPlace={this.handleAddPlaceClick} onEditAvatar={this.handleEditAvatarClick} onCardClick={this.handleCardClick} />
+          <CurrentUserContext.Provider value={this.state.currentUser}>
 
-          <Footer />
+            <Header />
 
-          <PopupWithForm name="edit" title="Редактировать профиль" buttonText="Сохранить" isOpen={this.state.isEditProfilePopupOpen} onClose={this.closeAllPopups}>
-            <FieldsetPopupEdit />
-          </PopupWithForm>
+            <Main onEditProfile={this.handleEditProfileClick} onAddPlace={this.handleAddPlaceClick} onEditAvatar={this.handleEditAvatarClick} onCardClick={this.handleCardClick} />
 
-          <PopupWithForm name="create" title="Новое место" buttonText="Создать" isOpen={this.state.isAddPlacePopupOpen} onClose={this.closeAllPopups}>
-            <FieldsetPopupCreate />
-          </PopupWithForm>
+            <Footer />
 
-          <PopupWithForm name="avatar-update" title="Обновить аватар" buttonText="Сохранить" isOpen={this.state.isEditAvatarPopupOpen} onClose={this.closeAllPopups}>
-            <FieldsetPopupAvatarUpdate />
-          </PopupWithForm>
+            <PopupWithForm name="edit" title="Редактировать профиль" buttonText="Сохранить" isOpen={this.state.isEditProfilePopupOpen} onClose={this.closeAllPopups}>
+              <FieldsetPopupEdit />
+            </PopupWithForm>
 
-          <PopupWithForm name="confirm" title="Вы уверены?" buttonText="Да" onClose={this.closeAllPopups} />
+            <PopupWithForm name="create" title="Новое место" buttonText="Создать" isOpen={this.state.isAddPlacePopupOpen} onClose={this.closeAllPopups}>
+              <FieldsetPopupCreate />
+            </PopupWithForm>
 
-          <ImagePopup card={this.state.selectedCard} onClose={this.closeAllPopups} />
+            <PopupWithForm name="avatar-update" title="Обновить аватар" buttonText="Сохранить" isOpen={this.state.isEditAvatarPopupOpen} onClose={this.closeAllPopups}>
+              <FieldsetPopupAvatarUpdate />
+            </PopupWithForm>
+
+            <PopupWithForm name="confirm" title="Вы уверены?" buttonText="Да" onClose={this.closeAllPopups} />
+
+            <ImagePopup card={this.state.selectedCard} onClose={this.closeAllPopups} />
+
+          </CurrentUserContext.Provider>
+          
         </div>
       </div>
     );
