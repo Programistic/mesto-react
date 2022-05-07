@@ -17,7 +17,7 @@ class Card extends React.Component {
     return (
       <li className="card">
         <img className="card__image" src={this.props.link} alt={this.props.title} onClick={this.handleClick} />
-        <button className={`button {cardDeleteButtonClassName}`} type="button" aria-label="Удалить"></button>
+        <button className={`button ${cardDeleteButtonClassName}`} type="button" aria-label="Удалить"></button>
         <div className="card__inner-container">
           <h2 className="card__title">{this.props.title}</h2>
             <button className="button card__button-like" type="button" aria-label="Симпатия">
