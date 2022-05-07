@@ -7,7 +7,11 @@ class Card extends React.Component {
   
   handleClick = () => {
     this.props.onCardClick(this.props);
-  } 
+  }
+
+  handleLikeClick = () => {
+    this.props.onCardLike(this.props.card);
+  }
 
   render() {
 
@@ -23,7 +27,7 @@ class Card extends React.Component {
         <button className={`button ${cardDeleteButtonClassName}`} type="button" aria-label="Удалить"></button>
         <div className="card__inner-container">
           <h2 className="card__title">{this.props.card.name}</h2>
-            <button className="button card__button-like" type="button" aria-label="Симпатия">
+            <button className="button card__button-like" type="button" aria-label="Симпатия" onClick={this.handleLikeClick}>
               <span className={`card__like ${cardLikeSetClassName}`}></span>
               <span className="card__like-counter">{this.props.card.likes.length}</span>
             </button>  

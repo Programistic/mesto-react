@@ -71,20 +71,20 @@ class Api {
       .then(res => this._getResponseData(res));
   }
 
-  addLike(cardID) {
-    return fetch(this._cardURL + `/${cardID}/likes`, {
-      method: 'PUT',
-      headers: this._headers
-    })
-      .then(res => this._getResponseData(res));
-  }
-
-  deleteLike(cardID) {
-    return fetch(this._cardURL + `/${cardID}/likes`, {
-      method: 'DELETE',
-      headers: this._headers
-    })
-      .then(res => this._getResponseData(res));
+  changeLikeCardStatus(cardID, isLiked) {
+    if (!isLiked) {
+      return fetch(this._cardURL + `/${cardID}/likes`, {
+        method: 'PUT',
+        headers: this._headers
+      })
+        .then(res => this._getResponseData(res));
+    } else {
+        return fetch(this._cardURL + `/${cardID}/likes`, {
+          method: 'DELETE',
+          headers: this._headers
+        })
+          .then(res => this._getResponseData(res));
+      }
   }
 
   _getResponseData(res) {

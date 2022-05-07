@@ -14,15 +14,29 @@ class Main extends React.Component {
 
   componentDidMount() {
     api.getCards()
-      .then(cardsData => {
+      .then(getCardsArray => {
         this.setState(
           {
-            cards: cardsData,
+            cards: getCardsArray
           }
         );
-        this.cardList = this.state.cards.map((card) => (
-          <Card key={card._id} card={card} onCardClick={this.props.onCardClick} />
-        ));
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+
+  handleCardLike = (card) => {
+    const isLiked = card.likes.some(like => like._id === this.context._id);
+
+    api.changeLikeCardStatus(card._id, isLiked)
+      .then(getCard => {
+        const newCardsArray = this.state.cards.map(oldCard => oldCard._id === getCard._id ? getCard : oldCard);
+        this.setState(
+          {
+            cards: newCardsArray
+          }
+        );
       })
       .catch(err => {
         console.log(err);
@@ -30,6 +44,11 @@ class Main extends React.Component {
   }
 
   render() {
+
+    this.cardList = this.state.cards.map(card =>
+      <Card key={card._id} card={card} onCardLike={this.handleCardLike} onCardClick={this.props.onCardClick} />
+    );
+
     return (
       <main>
         <section className="profile">
@@ -42,7 +61,6 @@ class Main extends React.Component {
           <p className="profile__user-info">{this.context.about}</p>
           <button className="button profile__button-add" type="button" aria-label="Добавить" onClick={this.props.onAddPlace}></button> 
         </section>
-  
         <section className="card-repository">
           <ul className="cards">
             {this.cardList}

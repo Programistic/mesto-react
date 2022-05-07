@@ -68,7 +68,6 @@ class App extends React.Component {
     api.getProfile()
       .then((userData) => {
         this.setState( {currentUser: userData} )
-        console.log(this.state.currentUser)
       })
       .catch((err) => {
         console.log(err);
