@@ -13,18 +13,18 @@ class Main extends React.Component {
   static contextType = CurrentUserContext;
 
   componentDidMount() {
-    Promise.all([api.getProfile(), api.getCards()])
-      .then(([userData, cardsData]) => {
+    api.getCards()
+      .then(cardsData => {
         this.setState(
           {
             cards: cardsData,
           }
         );
         this.cardList = this.state.cards.map((card) => (
-          <Card key={card._id} title={card.name} link={card.link} number={card.likes.length} owner={card.owner._id} onCardClick={this.props.onCardClick} />
-        ))
+          <Card key={card._id} card={card} onCardClick={this.props.onCardClick} />
+        ));
       })
-      .catch((err) => {
+      .catch(err => {
         console.log(err);
       });
   }
