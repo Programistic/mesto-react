@@ -6,11 +6,15 @@ class Card extends React.Component {
   static contextType = CurrentUserContext;
   
   handleClick = () => {
-    this.props.onCardClick(this.props);
+    this.props.onCardClick(this.props.card);
   }
 
   handleLikeClick = () => {
     this.props.onCardLike(this.props.card);
+  }
+
+  handleDeleteClick =() => {
+    this.props.onCardDelete(this.props.card);
   }
 
   render() {
@@ -24,7 +28,7 @@ class Card extends React.Component {
     return (
       <li className="card">
         <img className="card__image" src={this.props.card.link} alt={this.props.card.name} onClick={this.handleClick} />
-        <button className={`button ${cardDeleteButtonClassName}`} type="button" aria-label="Удалить"></button>
+        <button className={`button ${cardDeleteButtonClassName}`} type="button" aria-label="Удалить" onClick={this.handleDeleteClick}></button>
         <div className="card__inner-container">
           <h2 className="card__title">{this.props.card.name}</h2>
             <button className="button card__button-like" type="button" aria-label="Симпатия" onClick={this.handleLikeClick}>

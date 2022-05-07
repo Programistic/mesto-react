@@ -31,10 +31,9 @@ class Main extends React.Component {
 
     api.changeLikeCardStatus(card._id, isLiked)
       .then(getCard => {
-        const newCardsArray = this.state.cards.map(oldCard => oldCard._id === getCard._id ? getCard : oldCard);
         this.setState(
           {
-            cards: newCardsArray
+            cards: this.state.cards.map(oldCard => oldCard._id === getCard._id ? getCard : oldCard)
           }
         );
       })
@@ -43,10 +42,24 @@ class Main extends React.Component {
       });
   }
 
+  handleCardDelete = (deleteCard) => {
+    api.deleteCard(deleteCard._id)
+      .then(() => {
+        this.setState(
+          {
+            cards: this.state.cards.filter(currentCard => currentCard._id !== deleteCard._id)
+          }
+        ); 
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
   render() {
 
     this.cardList = this.state.cards.map(card =>
-      <Card key={card._id} card={card} onCardLike={this.handleCardLike} onCardClick={this.props.onCardClick} />
+      <Card key={card._id} card={card} onCardLike={this.handleCardLike} onCardDelete={this.handleCardDelete} onCardClick={this.props.onCardClick} />
     );
 
     return (
