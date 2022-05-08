@@ -4,6 +4,7 @@ import Header from './Header';
 import Main from './Main';
 import Footer from './Footer';
 import PopupWithForm from './PopupWithForm';
+import PopupWithConfirm from './PopupWithConfirm';
 import FieldsetPopupEdit from './FieldsetPopupEdit';
 import FieldsetPopupCreate from './FieldsetPopupCreate';
 import FieldsetPopupAvatarUpdate from './FieldsetPopupAvatarUpdate';
@@ -19,6 +20,7 @@ class App extends React.Component {
       isEditProfilePopupOpen: false,
       isAddPlacePopupOpen: false,
       isEditAvatarPopupOpen: false,
+      isConfirmPopupOpen: false,
       selectedCard: {},
       currentUser: {}
     };
@@ -34,6 +36,10 @@ class App extends React.Component {
 
   handleEditAvatarClick = () => {
     this.setState({ isEditAvatarPopupOpen: true });
+  }
+
+  handleConfirmDeleteCardClick = () => {
+    this.setState({ isConfirmPopupOpen: true });
   }
 
   handleEscClick = (event) => {
@@ -58,6 +64,7 @@ class App extends React.Component {
         isEditProfilePopupOpen: false,
         isAddPlacePopupOpen: false,
         isEditAvatarPopupOpen: false,
+        isConfirmPopupOpen: false,
         selectedCard: {}
       }
     );
@@ -107,7 +114,7 @@ class App extends React.Component {
               <FieldsetPopupAvatarUpdate />
             </PopupWithForm>
 
-            <PopupWithForm name="confirm" title="Вы уверены?" buttonText="Да" onClose={this.closeAllPopups} />
+            <PopupWithConfirm name="confirm" title="Вы уверены?" buttonText="Да" isOpen={this.state.isConfirmPopupOpen} onClose={this.closeAllPopups} />
 
             <ImagePopup card={this.state.selectedCard} onClose={this.closeAllPopups} />
 
