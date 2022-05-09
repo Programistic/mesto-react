@@ -11,6 +11,7 @@ import FieldsetPopupAvatarUpdate from './FieldsetPopupAvatarUpdate';
 import ImagePopup from './ImagePopup.js';
 import api from '../utils/Api.js';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
+import EditProfilePopup from './EditProfilePopup';
 
 class App extends React.Component {
   constructor(props) {
@@ -102,9 +103,7 @@ class App extends React.Component {
 
             <Footer />
 
-            <PopupWithForm name="edit" title="Редактировать профиль" buttonText="Сохранить" isOpen={this.state.isEditProfilePopupOpen} onClose={this.closeAllPopups}>
-              <FieldsetPopupEdit />
-            </PopupWithForm>
+            <EditProfilePopup isOpen={this.state.isEditProfilePopupOpen} onClose={this.closeAllPopups} />
 
             <PopupWithForm name="create" title="Новое место" buttonText="Создать" isOpen={this.state.isAddPlacePopupOpen} onClose={this.closeAllPopups}>
               <FieldsetPopupCreate />
