@@ -1,6 +1,6 @@
 # Одностраничный сайт "Место"
 
-### https://programistic.github.io/mesto-react/
+### https://
 
 ### Учебный проект от Яндекс-Практикум
 
