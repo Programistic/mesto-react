@@ -14,17 +14,17 @@ function EditProfilePopup(props) {
     setUserDescription(currentUser.about);
   }, [currentUser]);
 
-  const handleNameChange = (e) => {
-    setUserName(e.target.value);
+  const handleNameChange = (event) => {
+    setUserName(event.target.value);
   }
 
-  const handleDescriptionChange = (e) => {
-    setUserDescription(e.target.value);
+  const handleDescriptionChange = (event) => {
+    setUserDescription(event.target.value);
   }
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    props.onUpdateUser(userName, userDescription)
+    props.onUpdateUser(userName, userDescription);
   }
 
   return (
