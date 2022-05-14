@@ -14,7 +14,7 @@ class Api {
     this._headers = { authorization: this._token, 'Content-Type': 'application/json' }
   }
 
-  getProfile() {
+  getUserInfo() {
     return fetch(this._userURL, {
       headers: this._headers
     })
@@ -28,13 +28,13 @@ class Api {
       .then(res => this._getResponseData(res))
   }
 
-  setUserInfo(userData) {
+  setUserInfo(userName, userDescription) {
     return fetch(this._userURL, {
       method: 'PATCH',
       headers: this._headers,
       body: JSON.stringify({
-        name: userData['user-name'],
-        about: userData['user-info']
+        name: userName,
+        about: userDescription
       })
     })
       .then(res => this._getResponseData(res))

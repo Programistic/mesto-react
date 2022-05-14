@@ -7,7 +7,7 @@ import { CurrentUserContext } from '../contexts/CurrentUserContext';
 class Main extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { userName: null, userDescription: null, userAvatar: null, cards: [] };
+    this.state = { cards: [] };
   }
   
   static contextType = CurrentUserContext;

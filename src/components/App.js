@@ -1,11 +1,9 @@
 import React from 'react';
-import { Route } from 'react-router-dom';
 import Header from './Header';
 import Main from './Main';
 import Footer from './Footer';
 import PopupWithForm from './PopupWithForm';
 import PopupWithConfirm from './PopupWithConfirm';
-import FieldsetPopupEdit from './FieldsetPopupEdit';
 import FieldsetPopupCreate from './FieldsetPopupCreate';
 import FieldsetPopupAvatarUpdate from './FieldsetPopupAvatarUpdate';
 import ImagePopup from './ImagePopup.js';
@@ -59,6 +57,17 @@ class App extends React.Component {
     this.setState({ selectedCard: card });
   }
 
+  handleUpdateUser = (userName, userDescription) => {
+    api.setUserInfo(userName, userDescription)
+      .then(userData => {
+        this.setState( {currentUser: userData} )
+        this.closeAllPopups();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
   closeAllPopups = () => {
     this.setState(
       {
@@ -72,9 +81,8 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-
-    api.getProfile()
-      .then((userData) => {
+    api.getUserInfo()
+      .then(userData => {
         this.setState( {currentUser: userData} )
       })
       .catch((err) => {
@@ -103,7 +111,7 @@ class App extends React.Component {
 
             <Footer />
 
-            <EditProfilePopup isOpen={this.state.isEditProfilePopupOpen} onClose={this.closeAllPopups} />
+            <EditProfilePopup isOpen={this.state.isEditProfilePopupOpen} onUpdateUser={this.handleUpdateUser} onClose={this.closeAllPopups} />
 
             <PopupWithForm name="create" title="Новое место" buttonText="Создать" isOpen={this.state.isAddPlacePopupOpen} onClose={this.closeAllPopups}>
               <FieldsetPopupCreate />
