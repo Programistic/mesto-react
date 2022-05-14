@@ -8,7 +8,7 @@ import EditProfilePopup from './EditProfilePopup';
 import EditAvatarPopup from './EditAvatarPopup';
 import AddPlacePopup from './AddPlacePopup';
 import ImagePopup from './ImagePopup';
-import PopupWithConfirm from './PopupWithConfirm';
+import ConfirmDeletePopup from './ConfirmDeletePopup';
 
 class App extends Component {
   constructor(props) {
@@ -178,9 +178,9 @@ class App extends Component {
 
             <EditAvatarPopup isOpen={this.state.isEditAvatarPopupOpen} onUpdateAvatar={this.handleUpdateAvatar} onClose={this.closeAllPopups} />
 
-            <AddPlacePopup isOpen={this.state.isAddPlacePopupOpen} onAddPlace={this.handleAddPlace} onClose={this.closeAllPopups}/>
+            <AddPlacePopup isOpen={this.state.isAddPlacePopupOpen} onAddPlace={this.handleAddPlace} onClose={this.closeAllPopups} />
 
-            <PopupWithConfirm name="confirm" title="Вы уверены?" buttonText="Да" isOpen={this.state.isConfirmPopupOpen} onClose={this.closeAllPopups} />
+            <ConfirmDeletePopup isOpen={this.state.isConfirmPopupOpen} onClose={this.closeAllPopups} />
 
             <ImagePopup card={this.state.selectedCard} onClose={this.closeAllPopups} />
 
@@ -189,8 +189,7 @@ class App extends Component {
         </div>
       </div>
     );
-  }
-  
+  } 
 }
 
 export default App;
