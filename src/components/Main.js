@@ -1,87 +1,37 @@
-import { Component } from 'react';
+import { useContext } from 'react';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
-import api from '../utils/Api';
 import Card from './Card';
 
 
-class Main extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { cards: [] };
-  }
-  
-  static contextType = CurrentUserContext;
+function Main(props) {
 
-  componentDidMount() {
-    api.getCards()
-      .then(getCardsArray => {
-        this.setState(
-          {
-            cards: getCardsArray
-          }
-        );
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  }
+  const currentUser = useContext(CurrentUserContext);
 
-  handleCardLike = (card) => {
-    const isLiked = card.likes.some(like => like._id === this.context._id);
-
-    api.changeLikeCardStatus(card._id, isLiked)
-      .then(getCard => {
-        this.setState(
-          {
-            cards: this.state.cards.map(oldCard => oldCard._id === getCard._id ? getCard : oldCard)
-          }
-        );
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  }
-
-  handleCardDelete = (deleteCard) => {
-    api.deleteCard(deleteCard._id)
-      .then(() => {
-        this.setState(
-          {
-            cards: this.state.cards.filter(currentCard => currentCard._id !== deleteCard._id)
-          }
-        ); 
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
-
-  render() {
-
-    this.cardList = this.state.cards.map(card =>
-      <Card key={card._id} card={card} onCardLike={this.handleCardLike} onCardDelete={this.handleCardDelete} onCardClick={this.props.onCardClick} />
-    );
-
+  const cardList = props.cards.map((card) => {
     return (
-      <main>
-        <section className="profile">
-          <img className="profile__avatar" src={this.context.avatar} alt="Аватар"/>
-          <div className="profile__edit-icon" onClick={this.props.onEditAvatar}></div>    
-          <div className="profile__inner-container">
-            <h1 className="profile__user-name">{this.context.name}</h1>
-            <button className="button profile__button-edit" type="button" aria-label="Редактировать" onClick={this.props.onEditProfile}></button>
-          </div>
-          <p className="profile__user-info">{this.context.about}</p>
-          <button className="button profile__button-add" type="button" aria-label="Добавить" onClick={this.props.onAddPlace}></button> 
-        </section>
-        <section className="card-repository">
-          <ul className="cards">
-            {this.cardList}
-          </ul>
-        </section>
-      </main>
-    );
-  }
+      <Card key={card._id} card={card} onCardLike={props.onCardLike} onCardDelete={props.onCardDelete} onCardClick={props.onCardClick} />
+    )
+  });
+
+  return (
+    <main>
+      <section className="profile">
+        <img className="profile__avatar" src={currentUser.avatar} alt="Аватар"/>
+        <div className="profile__edit-icon" onClick={props.onEditAvatar}></div>    
+        <div className="profile__inner-container">
+          <h1 className="profile__user-name">{currentUser.name}</h1>
+          <button className="button profile__button-edit" type="button" aria-label="Редактировать" onClick={props.onEditProfile}></button>
+        </div>
+        <p className="profile__user-info">{currentUser.about}</p>
+        <button className="button profile__button-add" type="button" aria-label="Добавить" onClick={props.onAddPlace}></button> 
+      </section>
+      <section className="card-repository">
+        <ul className="cards">
+          {cardList}
+        </ul>
+      </section>
+    </main>
+  );
 }
 
 export default Main;

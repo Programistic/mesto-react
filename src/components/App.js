@@ -4,13 +4,11 @@ import api from '../utils/Api';
 import Header from './Header';
 import Main from './Main';
 import Footer from './Footer';
-import PopupWithForm from './PopupWithForm';
 import EditProfilePopup from './EditProfilePopup';
 import EditAvatarPopup from './EditAvatarPopup';
+import AddPlacePopup from './AddPlacePopup';
 import ImagePopup from './ImagePopup';
 import PopupWithConfirm from './PopupWithConfirm';
-
-import FieldsetPopupCreate from './FieldsetPopupCreate';
 
 class App extends Component {
   constructor(props) {
@@ -22,6 +20,7 @@ class App extends Component {
       isEditAvatarPopupOpen: false,
       isConfirmPopupOpen: false,
       selectedCard: {},
+      cards: [],
       currentUser: {}
     };
   }
@@ -54,10 +53,6 @@ class App extends Component {
     }
   }
 
-  handleCardClick = (card) => {
-    this.setState({ selectedCard: card });
-  }
-
   handleUpdateUser = (userName, userDescription) => {
     api.setUserInfo(userName, userDescription)
       .then(userData => {
@@ -80,12 +75,68 @@ class App extends Component {
       });
   }
 
+  handleCardLike = (card) => {
+
+    const isLiked = card.likes.some(like => like._id === this.state.currentUser._id);
+
+    api.changeLikeCardStatus(card._id, isLiked)
+      .then(getCard => {
+        this.setState(
+          {
+            cards: this.state.cards.map(oldCard => oldCard._id === getCard._id ? getCard : oldCard)
+          }
+        );
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+
+  handleCardDelete = (deleteCard) => {
+    api.deleteCard(deleteCard._id)
+      .then(() => {
+        this.setState(
+          {
+            cards: this.state.cards.filter(currentCard => currentCard._id !== deleteCard._id)
+          }
+        ); 
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  handleCardClick = (card) => {
+    this.setState({ selectedCard: card });
+  }
+
+  handleAddPlace = (placeName, placeImage) => {
+    api.setCard(placeName, placeImage)
+    .then(newCard => {
+      this.setState( {cards: [newCard, ...this.state.cards] })
+      this.closeAllPopups();
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  }
+
   componentDidMount() {
     api.getUserInfo()
       .then(userData => {
         this.setState( {currentUser: userData} )
       })
       .catch((err) => {
+        console.log(err);
+      });
+
+      api.getCards()
+      .then(getCardsArray => {
+        this.setState(
+          { cards: getCardsArray }
+        );
+      })
+      .catch(err => {
         console.log(err);
       });
 
@@ -119,7 +170,7 @@ class App extends Component {
 
             <Header />
 
-            <Main onEditProfile={this.handleEditProfileClick} onAddPlace={this.handleAddPlaceClick} onEditAvatar={this.handleEditAvatarClick} onCardClick={this.handleCardClick} />
+            <Main cards={this.state.cards} onEditProfile={this.handleEditProfileClick} onAddPlace={this.handleAddPlaceClick} onEditAvatar={this.handleEditAvatarClick} onCardLike={this.handleCardLike} onCardDelete={this.handleCardDelete} onCardClick={this.handleCardClick} />
 
             <Footer />
 
@@ -127,9 +178,7 @@ class App extends Component {
 
             <EditAvatarPopup isOpen={this.state.isEditAvatarPopupOpen} onUpdateAvatar={this.handleUpdateAvatar} onClose={this.closeAllPopups} />
 
-            <PopupWithForm name="create" title="Новое место" buttonText="Создать" isOpen={this.state.isAddPlacePopupOpen} onClose={this.closeAllPopups}>
-              <FieldsetPopupCreate />
-            </PopupWithForm>
+            <AddPlacePopup isOpen={this.state.isAddPlacePopupOpen} onAddPlace={this.handleAddPlace} onClose={this.closeAllPopups}/>
 
             <PopupWithConfirm name="confirm" title="Вы уверены?" buttonText="Да" isOpen={this.state.isConfirmPopupOpen} onClose={this.closeAllPopups} />
 

@@ -12,9 +12,7 @@ function EditAvatarPopup(props) {
 
   useEffect(() => {
     inputAvatarSrc.current.value = '';
-  }, [props.isOpen])
-
-  
+  }, [props.isOpen]);
 
   return (
     <PopupWithForm name="avatar-update" title="Обновить аватар" buttonText="Сохранить" isOpen={props.isOpen} onClose={props.onClose} onSubmit={handleSubmit}>
@@ -26,7 +24,6 @@ function EditAvatarPopup(props) {
       </fieldset>
     </PopupWithForm>
   );
-
 }
 
 export default EditAvatarPopup;
