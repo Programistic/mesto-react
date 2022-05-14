@@ -6,11 +6,11 @@ import Main from './Main';
 import Footer from './Footer';
 import PopupWithForm from './PopupWithForm';
 import EditProfilePopup from './EditProfilePopup';
+import EditAvatarPopup from './EditAvatarPopup';
 import ImagePopup from './ImagePopup';
 import PopupWithConfirm from './PopupWithConfirm';
 
 import FieldsetPopupCreate from './FieldsetPopupCreate';
-import FieldsetPopupAvatarUpdate from './FieldsetPopupAvatarUpdate';
 
 class App extends Component {
   constructor(props) {
@@ -61,7 +61,7 @@ class App extends Component {
   handleUpdateUser = (userName, userDescription) => {
     api.setUserInfo(userName, userDescription)
       .then(userData => {
-        this.setState( {currentUser: userData} )
+        this.setState({currentUser: userData});
         this.closeAllPopups();
       })
       .catch((err) => {
@@ -69,16 +69,15 @@ class App extends Component {
       });
   }
 
-  closeAllPopups = () => {
-    this.setState(
-      {
-        isEditProfilePopupOpen: false,
-        isAddPlacePopupOpen: false,
-        isEditAvatarPopupOpen: false,
-        isConfirmPopupOpen: false,
-        selectedCard: {}
-      }
-    );
+  handleUpdateAvatar = (userAvatar) => {
+    api.setAvatar(userAvatar)
+      .then(userData => {
+        this.setState({currentUser: userData});
+        this.closeAllPopups();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   componentDidMount() {
@@ -99,6 +98,18 @@ class App extends Component {
     document.addEventListener("click", this.handleOutsideClick);
   }
 
+  closeAllPopups = () => {
+    this.setState(
+      {
+        isEditProfilePopupOpen: false,
+        isAddPlacePopupOpen: false,
+        isEditAvatarPopupOpen: false,
+        isConfirmPopupOpen: false,
+        selectedCard: {}
+      }
+    );
+  }
+
   render() {
     return (
       <div className="page">
@@ -114,12 +125,10 @@ class App extends Component {
 
             <EditProfilePopup isOpen={this.state.isEditProfilePopupOpen} onUpdateUser={this.handleUpdateUser} onClose={this.closeAllPopups} />
 
+            <EditAvatarPopup isOpen={this.state.isEditAvatarPopupOpen} onUpdateAvatar={this.handleUpdateAvatar} onClose={this.closeAllPopups} />
+
             <PopupWithForm name="create" title="Новое место" buttonText="Создать" isOpen={this.state.isAddPlacePopupOpen} onClose={this.closeAllPopups}>
               <FieldsetPopupCreate />
-            </PopupWithForm>
-
-            <PopupWithForm name="avatar-update" title="Обновить аватар" buttonText="Сохранить" isOpen={this.state.isEditAvatarPopupOpen} onClose={this.closeAllPopups}>
-              <FieldsetPopupAvatarUpdate />
             </PopupWithForm>
 
             <PopupWithConfirm name="confirm" title="Вы уверены?" buttonText="Да" isOpen={this.state.isConfirmPopupOpen} onClose={this.closeAllPopups} />
