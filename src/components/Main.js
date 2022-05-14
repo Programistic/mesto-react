@@ -1,10 +1,10 @@
-import React from 'react';
-import '../index.css';
-import api from '../utils/Api.js';
-import Card from './Card.js';
+import { Component } from 'react';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
+import api from '../utils/Api';
+import Card from './Card';
 
-class Main extends React.Component {
+
+class Main extends Component {
   constructor(props) {
     super(props);
     this.state = { cards: [] };

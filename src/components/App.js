@@ -1,17 +1,18 @@
-import React from 'react';
+import { Component } from 'react';
+import { CurrentUserContext } from '../contexts/CurrentUserContext';
+import api from '../utils/Api';
 import Header from './Header';
 import Main from './Main';
 import Footer from './Footer';
 import PopupWithForm from './PopupWithForm';
+import EditProfilePopup from './EditProfilePopup';
+import ImagePopup from './ImagePopup';
 import PopupWithConfirm from './PopupWithConfirm';
+
 import FieldsetPopupCreate from './FieldsetPopupCreate';
 import FieldsetPopupAvatarUpdate from './FieldsetPopupAvatarUpdate';
-import ImagePopup from './ImagePopup.js';
-import api from '../utils/Api.js';
-import { CurrentUserContext } from '../contexts/CurrentUserContext';
-import EditProfilePopup from './EditProfilePopup';
 
-class App extends React.Component {
+class App extends Component {
   constructor(props) {
     super(props);
 

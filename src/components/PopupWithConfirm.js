@@ -1,6 +1,6 @@
-import React from 'react';
+import { Component } from 'react'
 
-class PopupWithConfirm extends React.Component {
+class PopupWithConfirm extends Component {
 
   handleConfirmCardDelete = (event) => {
     event.preventDefault();
