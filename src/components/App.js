@@ -176,19 +176,46 @@ class App extends Component {
 
             <Header />
 
-            <Main cards={this.state.cards} onEditProfile={this.handleEditProfileClick} onAddPlace={this.handleAddPlaceClick} onEditAvatar={this.handleEditAvatarClick} onCardLike={this.handleCardLike} onCardDelete={this.openConfirmDeletePopup} onCardClick={this.handleCardClick} />
+            <Main
+              cards={this.state.cards}
+              onEditProfile={this.handleEditProfileClick}
+              onAddPlace={this.handleAddPlaceClick}
+              onEditAvatar={this.handleEditAvatarClick}
+              onCardLike={this.handleCardLike}
+              onCardDelete={this.openConfirmDeletePopup}
+              onCardClick={this.handleCardClick}
+            />
 
             <Footer />
 
-            <EditProfilePopup isOpen={this.state.isEditProfilePopupOpen} onUpdateUser={this.handleUpdateUser} onClose={this.closeAllPopups} />
+            <EditProfilePopup
+              isOpen={this.state.isEditProfilePopupOpen}
+              onUpdateUser={this.handleUpdateUser}
+              onClose={this.closeAllPopups}
+            />
 
-            <EditAvatarPopup isOpen={this.state.isEditAvatarPopupOpen} onUpdateAvatar={this.handleUpdateAvatar} onClose={this.closeAllPopups} />
+            <EditAvatarPopup
+              isOpen={this.state.isEditAvatarPopupOpen}
+              onUpdateAvatar={this.handleUpdateAvatar}
+              onClose={this.closeAllPopups}
+            />
 
-            <AddPlacePopup isOpen={this.state.isAddPlacePopupOpen} onAddPlace={this.handleAddPlace} onClose={this.closeAllPopups} />
+            <AddPlacePopup
+              isOpen={this.state.isAddPlacePopupOpen}
+              onAddPlace={this.handleAddPlace}
+              onClose={this.closeAllPopups}
+            />
 
-            <ConfirmDeletePopup isOpen={this.state.isConfirmPopupOpen} onConfirmDeleteCard={this.handleCardDelete} onClose={this.closeAllPopups} />
+            <ConfirmDeletePopup
+              isOpen={this.state.isConfirmPopupOpen}
+              onConfirmDeleteCard={this.handleCardDelete}
+              onClose={this.closeAllPopups}
+            />
 
-            <ImagePopup card={this.state.selectedCard} onClose={this.closeAllPopups} />
+            <ImagePopup
+              card={this.state.selectedCard}
+              onClose={this.closeAllPopups}
+            />
 
           </CurrentUserContext.Provider>
           

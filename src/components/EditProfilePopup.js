@@ -2,7 +2,7 @@ import { useState, useEffect, useContext } from 'react';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import PopupWithForm from './PopupWithForm';
 
-function EditProfilePopup(props) {
+function EditProfilePopup({isOpen, onUpdateUser, onClose}) {
 
   const currentUser = useContext(CurrentUserContext);
 
@@ -12,7 +12,7 @@ function EditProfilePopup(props) {
   useEffect(() => {
     setUserName(currentUser.name);
     setUserDescription(currentUser.about);
-  }, [currentUser]);
+  }, [currentUser, isOpen]);
 
   const handleNameChange = (event) => {
     setUserName(event.target.value);
@@ -24,11 +24,11 @@ function EditProfilePopup(props) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    props.onUpdateUser(userName, userDescription);
+    onUpdateUser(userName, userDescription);
   }
 
   return (
-    <PopupWithForm name="edit" title="Редактировать профиль" buttonText="Сохранить" isOpen={props.isOpen} onClose={props.onClose} onSubmit={handleSubmit}>
+    <PopupWithForm name="edit" title="Редактировать профиль" buttonText="Сохранить" isOpen={isOpen} onClose={onClose} onSubmit={handleSubmit}>
       <fieldset className="form__fieldset">
         <div className="form__field">
           <input id="user-name-input" className="form__input form__input_role_user-name" type="text" name="user-name" value={userName || ''} onChange={handleNameChange} placeholder="Ваше имя" required />

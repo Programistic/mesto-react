@@ -1,23 +1,23 @@
 import { useRef, useEffect } from 'react';
 import PopupWithForm from './PopupWithForm';
 
-function AddPlacePopup(props) {
+function AddPlacePopup({isOpen, onAddPlace, onClose}) {
 
   const inputPlaceName = useRef();
   const inputPlaceImage = useRef();
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    props.onAddPlace(inputPlaceName.current.value, inputPlaceImage.current.value);
+    onAddPlace(inputPlaceName.current.value, inputPlaceImage.current.value);
   }
 
   useEffect(() => {
     inputPlaceName.current.value = '';
     inputPlaceImage.current.value = '';
-  }, [props.isOpen]);
+  }, [isOpen]);
 
   return (
-    <PopupWithForm name="create" title="Новое место" buttonText="Создать" isOpen={props.isOpen} onClose={props.onClose} onSubmit={handleSubmit}>
+    <PopupWithForm name="create" title="Новое место" buttonText="Создать" isOpen={isOpen} onClose={onClose} onSubmit={handleSubmit}>
       <fieldset className="form__fieldset">
         <div className="form__field">
           <input id="place-name-input" className="form__input form__input_role_place-name" type="text" name="place-name" ref={inputPlaceName} placeholder="Название" required />
