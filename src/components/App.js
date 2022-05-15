@@ -20,6 +20,7 @@ class App extends Component {
       isEditAvatarPopupOpen: false,
       isConfirmPopupOpen: false,
       selectedCard: {},
+      deleteCard: {},
       cards: [],
       currentUser: {}
     };
@@ -92,12 +93,13 @@ class App extends Component {
       });
   }
 
-  handleCardDelete = (deleteCard) => {
-    api.deleteCard(deleteCard._id)
+  handleCardDelete = () => {
+    api.deleteCard(this.state.deleteCard._id)
       .then(() => {
         this.setState(
           {
-            cards: this.state.cards.filter(currentCard => currentCard._id !== deleteCard._id)
+            cards: this.state.cards.filter(currentCard => currentCard._id !== this.state.deleteCard._id),
+            isConfirmPopupOpen: false
           }
         ); 
       })
@@ -161,6 +163,10 @@ class App extends Component {
     );
   }
 
+  openConfirmDeletePopup = (card) => {
+    this.setState({ deleteCard: card, isConfirmPopupOpen: true })
+  }
+
   render() {
     return (
       <div className="page">
@@ -170,7 +176,7 @@ class App extends Component {
 
             <Header />
 
-            <Main cards={this.state.cards} onEditProfile={this.handleEditProfileClick} onAddPlace={this.handleAddPlaceClick} onEditAvatar={this.handleEditAvatarClick} onCardLike={this.handleCardLike} onCardDelete={this.handleCardDelete} onCardClick={this.handleCardClick} />
+            <Main cards={this.state.cards} onEditProfile={this.handleEditProfileClick} onAddPlace={this.handleAddPlaceClick} onEditAvatar={this.handleEditAvatarClick} onCardLike={this.handleCardLike} onCardDelete={this.openConfirmDeletePopup} onCardClick={this.handleCardClick} />
 
             <Footer />
 
@@ -180,7 +186,7 @@ class App extends Component {
 
             <AddPlacePopup isOpen={this.state.isAddPlacePopupOpen} onAddPlace={this.handleAddPlace} onClose={this.closeAllPopups} />
 
-            <ConfirmDeletePopup isOpen={this.state.isConfirmPopupOpen} onClose={this.closeAllPopups} />
+            <ConfirmDeletePopup isOpen={this.state.isConfirmPopupOpen} onConfirmDeleteCard={this.handleCardDelete} onClose={this.closeAllPopups} />
 
             <ImagePopup card={this.state.selectedCard} onClose={this.closeAllPopups} />
 

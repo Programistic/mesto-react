@@ -4,13 +4,11 @@ function ConfirmDeletePopup(props) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    
+    props.onConfirmDeleteCard();
   }
   
   return (
-    <PopupWithForm name="confirm" title="Вы уверены?" buttonText="Да" isOpen={props.isOpen} onClose={props.onClose} onSubmit={handleSubmit}>
-      
-    </PopupWithForm>
+    <PopupWithForm name="confirm" title="Вы уверены?" buttonText="Да" isOpen={props.isOpen} onClose={props.onClose} onSubmit={handleSubmit} />
   );
 }
 
