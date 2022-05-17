@@ -57,7 +57,7 @@ class App extends Component {
   handleUpdateUser = (userName, userDescription) => {
     api.setUserInfo(userName, userDescription)
       .then(userData => {
-        this.setState({currentUser: userData});
+        this.setState({ currentUser: userData });
         this.closeAllPopups();
       })
       .catch((err) => {
@@ -68,7 +68,7 @@ class App extends Component {
   handleUpdateAvatar = (userAvatar) => {
     api.setAvatar(userAvatar)
       .then(userData => {
-        this.setState({currentUser: userData});
+        this.setState({ currentUser: userData });
         this.closeAllPopups();
       })
       .catch((err) => {
@@ -82,11 +82,7 @@ class App extends Component {
 
     api.changeLikeCardStatus(card._id, isLiked)
       .then(getCard => {
-        this.setState(
-          {
-            cards: this.state.cards.map(oldCard => oldCard._id === getCard._id ? getCard : oldCard)
-          }
-        );
+        this.setState({ cards: this.state.cards.map(oldCard => oldCard._id === getCard._id ? getCard : oldCard) });
       })
       .catch(err => {
         console.log(err);
@@ -115,7 +111,7 @@ class App extends Component {
   handleAddPlace = (placeName, placeImage) => {
     api.setCard(placeName, placeImage)
     .then(newCard => {
-      this.setState( {cards: [newCard, ...this.state.cards] })
+      this.setState({ cards: [newCard, ...this.state.cards] });
       this.closeAllPopups();
     })
     .catch((err) => {
@@ -126,7 +122,7 @@ class App extends Component {
   componentDidMount() {
     api.getUserInfo()
       .then(userData => {
-        this.setState( {currentUser: userData} )
+        this.setState({ currentUser: userData });
       })
       .catch((err) => {
         console.log(err);
@@ -134,9 +130,7 @@ class App extends Component {
 
       api.getCards()
       .then(getCardsArray => {
-        this.setState(
-          { cards: getCardsArray }
-        );
+        this.setState({ cards: getCardsArray });
       })
       .catch(err => {
         console.log(err);

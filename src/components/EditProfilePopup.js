@@ -8,10 +8,12 @@ function EditProfilePopup({isOpen, onUpdateUser, onClose}) {
 
   const [userName, setUserName] = useState('');
   const [userDescription, setUserDescription] = useState('');
+  const [textOnSubmit, setTextOnSubmit] = useState('');
 
   useEffect(() => {
     setUserName(currentUser.name);
     setUserDescription(currentUser.about);
+    setTextOnSubmit('Сохранить');
   }, [currentUser, isOpen]);
 
   const handleNameChange = (event) => {
@@ -24,11 +26,12 @@ function EditProfilePopup({isOpen, onUpdateUser, onClose}) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    setTextOnSubmit('Сохранение...');
     onUpdateUser(userName, userDescription);
   }
 
   return (
-    <PopupWithForm name="edit" title="Редактировать профиль" buttonText="Сохранить" isOpen={isOpen} onClose={onClose} onSubmit={handleSubmit}>
+    <PopupWithForm name="edit" title="Редактировать профиль" buttonText={textOnSubmit} isOpen={isOpen} onClose={onClose} onSubmit={handleSubmit}>
       <fieldset className="form__fieldset">
         <div className="form__field">
           <input id="user-name-input" className="form__input form__input_role_user-name" type="text" name="user-name" value={userName || ''} onChange={handleNameChange} placeholder="Ваше имя" required />
